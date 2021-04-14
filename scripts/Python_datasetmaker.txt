@@ -1,0 +1,26 @@
+#Performed in the Jupyter terminal with Python3
+
+#Install this in the command line
+pip install open3d
+
+#Open Python
+python
+
+#Install needed packages
+import open3d as o3d
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+#Upload the data
+im1 = o3d.io.read_point_cloud("./scan4None.ply") #scan4None.ply is an example .ply type file
+
+#Convert the coordinates from the LiDAR image to a numpy array
+cor1 = np.asarray(im1.points)
+ycor1 = [cor1[i][1] for i in range(len(cor1))]
+zcor1 = [cor1[i][2] for i in range(len(cor1))]
+plt.show((plt.plot(ycor1, zcor1))) #Visualize the LiDAR image to see if variation is visible; if not, try using x-axis coordinates
+
+#Write the coordinates from each image into a CSV file
+df1 = pd.concat([ycor1, zcor1], axis=1)
+df1.to_csv('./df1.csv') #Do not use index=False
