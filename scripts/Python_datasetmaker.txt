@@ -17,10 +17,10 @@ im1 = o3d.io.read_point_cloud("./scan4None.ply") #scan4None.ply is an example .p
 
 #Convert the coordinates from the LiDAR image to a numpy array
 cor1 = np.asarray(im1.points)
+xcor1 = [cor1[i][0] for i in range(len(cor1))]
 ycor1 = [cor1[i][1] for i in range(len(cor1))]
 zcor1 = [cor1[i][2] for i in range(len(cor1))]
 plt.show((plt.plot(ycor1, zcor1))) #Visualize the LiDAR image to see if variation is visible; if not, try using x-axis coordinates
 
 #Write the coordinates from each image into a CSV file
-df1 = pd.concat([ycor1, zcor1], axis=1)
-df1.to_csv('./df1.csv') #Do not use index=False
+pd.DataFrame({'xcor1':xcor1, 'ycor1':ycor1, 'zcor1':zcor1}).to_csv('df1.csv') #Do not use index=False
